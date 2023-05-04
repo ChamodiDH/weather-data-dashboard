@@ -23,7 +23,7 @@ const Dashboard = () => {
         const cacheKey = `weatherData-${cityCode}`;
         const cacheData = JSON.parse(localStorage.getItem(cacheKey));
 
-        if (cacheData && Date.now() - cacheData.timestamp < 3000) {
+        if (cacheData && Date.now() - cacheData.timestamp < 300000) {
           weatherData.push(cacheData.data);
         } else {
           const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?id=${cityCode}&units=metric&appid=8fc4cbf9f1b7a39b00b9f4dde541e4b3`);
