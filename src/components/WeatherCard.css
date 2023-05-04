@@ -1,0 +1,12 @@
+.weather-card {
+    width: 200px;
+    height: 250px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(55, 22, 186, 0.2);
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .weather-card:hover {
+    transform: scale(1.1);
+  }

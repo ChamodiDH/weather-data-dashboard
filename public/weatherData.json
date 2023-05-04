@@ -1,0 +1,29 @@
+{
+  "weatherData": [
+    {
+      "city": "London",
+      "temperature": "14",
+      "date": "Monday, May 10, 2021"
+    },
+    {
+      "city": "New York",
+      "temperature": "21",
+      "date": "Monday, May 10, 2021"
+    },
+    {
+      "city": "Tokyo",
+      "temperature": "17",
+      "date": "Tuesday, May 11, 2021"
+    },
+    {
+      "city": "Paris",
+      "temperature": "16",
+      "date": "Tuesday, May 11, 2021"
+    },
+    {
+      "city": "Sydney",
+      "temperature": "23",
+      "date": "Wednesday, May 12, 2021"
+    }
+  ]
+}
