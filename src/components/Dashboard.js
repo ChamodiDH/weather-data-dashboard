@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import WeatherCard from "./WeatherCard";
 import WeatherDetails from "./WeatherDetails";
 import { API_KEY } from "../constants/dashboard_constants";
-import { API_WEATHER_URL } from "../helpers/APIHelper";
+import { API_WEATHER_URL } from "../helpers/APIHelper"; //import api url
 
 const Dashboard = () => {
   const [weatherData, setWeatherData] = useState([]);
