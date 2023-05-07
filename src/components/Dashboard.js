@@ -1,97 +1,135 @@
 import React, { useState, useEffect } from "react";
 import WeatherCard from "./WeatherCard";
 import WeatherDetails from "./WeatherDetails";
+import { API_KEY } from "../constants/dashboard_constants";
+import { API_WEATHER_URL } from "../helpers/APIHelper";
 
 const Dashboard = () => {
   const [weatherData, setWeatherData] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-        console.log('data fetching..')
+      setIsLoading(true);
+
+      try {
+        console.log("data fetching..");
         const response = await fetch("/cities.json");
         const datac = await response.json();
         let citieso = datac.List.map((city) => city.CityCode).join(",");
-        const cities = citieso.split(',');
-        console.log(cities)
-      //const cities = ["1248991", "1850147", "2644210", "2988507", "2147714", "4930956", "1796236", "3143244"];
-      const weatherData = [];
+        const cities = citieso.split(",");
+        console.log(cities);
+        const weatherData = [];
+
       
+        const cachedData = {};
 
-      for (let i = 0; i < cities.length; i++) {
-        const cityCode = cities[i];
-        const cacheKey = `weatherData-${cityCode}`;
-        const cacheData = JSON.parse(localStorage.getItem(cacheKey));
+       
+        for (let i = 0; i < cities.length; i++) {
+          const cityCode = cities[i];
+          const cacheKey = `weatherData-${cityCode}`;
 
-        if (cacheData && Date.now() - cacheData.timestamp < 300000) {
-          weatherData.push(cacheData.data);
-        } else {
-          const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?id=${cityCode}&units=metric&appid=8fc4cbf9f1b7a39b00b9f4dde541e4b3`);
-          const data = await response.json();
-          //console.log('the data is'+ data)
-          const newData = {
-            cityCode: cityCode,
-            city:data.name,
-            temparature: data.main.temp,
-            main:data.weather[0].main,
-            description: data.weather[0].description,
-            date:data.dt,
-            data:data,
-            tempMin:data.main.temp_max,
-            tempMax:data.main.temp_min,
-            speed:data.wind.speed,
-            degree:data.wind.degree,
-            pressure:data.main.pressure,
-            humidity:data.main.humidity,
-            visibility:data.visibility,
-            sunrise:data.sys.sunrise,
-            sunset:data.sys.sunset,
-            country:data.sys.country
-          };
+          
+          if (cachedData[cacheKey] && Date.now() - cachedData[cacheKey].timestamp < 1000) {
+            weatherData.push(cachedData[cacheKey].data);
+          } else {
+            const response = await fetch(`${API_WEATHER_URL}/weather?id=${cityCode}&units=metric&appid=${API_KEY}`);
 
-          console.log(newData)
+            if (!response.ok) {
+              throw new Error("Error in Network responsing.");
+            }
 
-          localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: newData }));
-          weatherData.push(newData);
+            const data = await response.json();
+            const newData = {
+              cityCode: cityCode,
+              city: data.name,
+              temparature: data.main.temp,
+              main: data.weather[0].main,
+              description: data.weather[0].description,
+              date: data.dt,
+              data: data,
+              tempMin: data.main.temp_max,
+              tempMax: data.main.temp_min,
+              speed: data.wind.speed,
+              degree: data.wind.degree,
+              pressure: data.main.pressure,
+              humidity: data.main.humidity,
+              visibility: data.visibility,
+              sunrise: data.sys.sunrise,
+              sunset: data.sys.sunset,
+              country: data.sys.country,
+            };
+
+            console.log(newData);
+
+            cachedData[cacheKey] = {
+              timestamp: Date.now(),
+              data: newData,
+            };
+
+            weatherData.push(newData);
+          }
         }
-      }
 
-      setWeatherData(weatherData);
+      
+        setWeatherData(weatherData);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        setError(error.message);
+      }
     };
 
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const index = localStorage.getItem("selectedCardIndex");
+    if (index !== null) {
+      setSelectedCard(weatherData[index]);
+    }
+  }, [weatherData]);
+
   const handleCardClick = (index) => {
+    localStorage.setItem("selectedCardIndex", index);
     setSelectedCard(weatherData[index]);
   };
 
   const handleClose = () => {
+    localStorage.removeItem("selectedCardIndex");
     setSelectedCard(null);
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div>
       {selectedCard ? (
-        
-          <WeatherDetails
-            city={selectedCard.city}
-            country={selectedCard.country}
-            temparature={selectedCard.temparature}
-            date={selectedCard.date}
-            description={selectedCard.description}
-            tempMin={selectedCard.tempMax}
-            tempMax={selectedCard.tempMin}
-            pressure={selectedCard.pressure}
-            humidity={selectedCard.humidity}
-            visibility={selectedCard.visibility}
-            sunrise={selectedCard.sunrise}
-            sunset={selectedCard.sunset}
-            speed={selectedCard.speed}
-            degree={selectedCard.degree}
-            onClose={handleClose}
-          />
-       
+        <WeatherDetails
+          city={selectedCard.city}
+          country={selectedCard.country}
+          temparature={selectedCard.temparature}
+          date={selectedCard.date}
+          description={selectedCard.description}
+          tempMin={selectedCard.tempMax}
+          tempMax={selectedCard.tempMin}
+          pressure={selectedCard.pressure}
+          humidity={selectedCard.humidity}
+          visibility={selectedCard.visibility}
+          sunrise={selectedCard.sunrise}
+          sunset={selectedCard.sunset}
+          speed={selectedCard.speed}
+          degree={selectedCard.degree}
+          onClose={handleClose}
+        />
       ) : (
         <div className="weather-cards-container">
           {weatherData.map((data, index) => (
