@@ -49,6 +49,7 @@ const WeatherDetails = ({index, city,date,speed,degree,country,temparature,descr
       <div >
       <div className="card">
   <div className="card__img2">
+  <button className="close-button" onClick={onClose}>  <div className="wind-icon"><FontAwesomeIcon icon={faArrowLeft} /></div></button>
   <div className="cardtitle_data">
     <h2>{city},{country}</h2>
     <h6>{formatDate(date)}</h6>
@@ -81,7 +82,7 @@ const WeatherDetails = ({index, city,date,speed,degree,country,temparature,descr
   </div>
   
 </div>
-<button className="close-button" onClick={onClose}>  <div className="wind-icon"><FontAwesomeIcon icon={faArrowLeft} /></div></button>
+
 </div>
         
       </div>

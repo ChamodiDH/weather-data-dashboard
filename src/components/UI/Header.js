@@ -5,7 +5,7 @@ const Header = () => {
     return (
         <div className="Header-main">
             
-            <h1><FontAwesomeIcon icon={faSun} />  Weather App</h1>
+            <h1><FontAwesomeIcon icon={faSun} /> Weather App</h1>
         </div>
        
       );

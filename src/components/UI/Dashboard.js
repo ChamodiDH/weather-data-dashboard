@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import WeatherCard from "./WeatherCard";
-import WeatherDetails from "./WeatherDetails";
-import { API_KEY } from "../constants/dashboard_constants";
-import { API_WEATHER_URL } from "../helpers/APIHelper"; //import api url
+import WeatherCard from "../Weather Components/WeatherCard";
+import WeatherDetails from "../Weather Components/WeatherDetails";
+import { API_KEY } from "../../constants/dashboard_constants";
+import { API_WEATHER_URL } from "../../helpers/APIHelper"; //import api url
+import Footer from "./Footer"
 
 const Dashboard = () => {
   const [weatherData, setWeatherData] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null); //error
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +33,7 @@ const Dashboard = () => {
           const cacheKey = `weatherData-${cityCode}`;
 
           
-          if (cachedData[cacheKey] && Date.now() - cachedData[cacheKey].timestamp < 1000) {
+          if (cachedData[cacheKey] && Date.now() - cachedData[cacheKey].timestamp <300000) {
             weatherData.push(cachedData[cacheKey].data);
           } else {
             const response = await fetch(`${API_WEATHER_URL}/weather?id=${cityCode}&units=metric&appid=${API_KEY}`);
@@ -95,11 +96,23 @@ const Dashboard = () => {
   const handleCardClick = (index) => {
     localStorage.setItem("selectedCardIndex", index);
     setSelectedCard(weatherData[index]);
+    
   };
+
+  const handleCardClose = (city) => {
+    const pm = city
+    const newWeatherData = weatherData.filter((data) => data.city !== pm)
+    console.log('filtering..')
+    console.log(newWeatherData)
+    setWeatherData(newWeatherData)
+    console.log('button clicked')
+    
+  }
 
   const handleClose = () => {
     localStorage.removeItem("selectedCardIndex");
     setSelectedCard(null);
+    
   };
 
   if (isLoading) {
@@ -113,6 +126,7 @@ const Dashboard = () => {
   return (
     <div>
       {selectedCard ? (
+        <div>
         <WeatherDetails
           city={selectedCard.city}
           country={selectedCard.country}
@@ -130,7 +144,10 @@ const Dashboard = () => {
           degree={selectedCard.degree}
           onClose={handleClose}
         />
+        
+        </div>
       ) : (
+        <div>
         <div className="weather-cards-container">
           {weatherData.map((data, index) => (
             <WeatherCard
@@ -152,11 +169,16 @@ const Dashboard = () => {
               country={data.country}
               speed={data.speed}
               degree={data.degree}
+              cityCode = {data.cityCode}
               onClick={handleCardClick}
+              onClose={handleCardClose}
             />
           ))}
         </div>
+        <Footer/>
+        </div>
       )}
+      
     </div>
   );
 };

@@ -1,5 +1,23 @@
+@media only screen and (max-width: 768px) {
+  body {
+    width: 100%;
+    height: auto;
+    /* other styles */
+  }
+}
+
+
 body{
-  background-color: #bbe3f1;
+  background-color: #213a73;
+  color: #ffffff;
+ 
+ 
+    /* background-image: url('back2.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center; */
+
 }
 
 .dashboard {
@@ -144,9 +162,19 @@ body{
     margin-left: 100px;
     margin-right: 100px;
     color:#fff ;
+   
   }
   
-  
+  .close-buttonc {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    color: white;
+    background-color: transparent;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
   
   .card__img {
     width: 150%;
@@ -157,8 +185,9 @@ body{
     justify-content: space-around;
     object-fit: cover;
     border-radius: 20px 20px 0 0;
-    background-color: rgb(35, 84, 141);
+    background-color:#388ee7;
     margin-top: 20px;
+    position: relative;
   }
   
   .card__descr-wrapper {
@@ -215,6 +244,7 @@ body{
   .cardtitle_data{
     text-align: center;
     margin-top: 12px;
+    
   }
   .cardweatheric{
     display:flex;
@@ -251,11 +281,14 @@ body{
   }
 
   .close-button{
-    width: 20%;
-    border-radius: 5px 5px 5px 5px;
-    background-color: rgb(52, 54, 53);
-    margin-left: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
     color: white;
+    background-color: #388ee7;
+    margin-left: 15px;
+    margin-top: 15px;
   
   /* background-color: #007bff;
   color: #fff;
@@ -274,8 +307,9 @@ body{
     justify-content: space-around;
     object-fit: cover;
     border-radius: 20px 20px 0 0;
-    background-color: rgb(35, 84, 141);
+    background-color: #388ee7;
     color: white;
+    position: relative;
   }
 
   .card__descr-wrapper2 {
@@ -298,13 +332,40 @@ body{
   }
   .Footer-main{
     width:100%;
-    height:10%; 
-    position:absolute;
+    height: 60px;; 
+    /* position:relative;
     bottom:0;
-    left:0;
+    left:0; */
     background-color: rgb(52, 54, 53);
     color: white;
     text-align: center;
    
   }
- 
+  .footer-text{
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .color-1 {
+    background-color:#388ee7; /* Amber */
+  }
+  
+  .color-2 {
+    background-color:#6249cc; /* Blue */
+  }
+  
+  .color-3 {
+    background-color:#40b681; /* Green */
+  }
+  
+  .color-4 {
+    background-color:#de944e; /* Deep Orange */
+  }
+  
+  .color-5 {
+    background-color: #9c3a3a; /* Purple */
+  }
+  
+  
+  
+  

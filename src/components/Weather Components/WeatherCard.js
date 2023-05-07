@@ -1,18 +1,20 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useHistory } from 'react-router-dom';
+import TemparatureData from "../Data Components/TemparatureData";
+import Sun from "../Data Components/Sun";
+import PrsHmVs from "../Data Components/PrsHmVs";
+import Wind from "../Data Components/Wind";
+import City from "../Data Components/City";
 import { faSun, faPaperPlane,faCloud,faIndustry, faLemon,faBars,faTint } from "@fortawesome/free-solid-svg-icons";
-//tempMin={data.main.temp_max}
-//tempMax={data.main.temp_min}
-//pressure={data.main.pressure}
-//humidity={data.main.humidity}
-//visibility={data.visibility}
-//sunrise={data.sys.sunrise}
-//sunset={data.sys.sunset}
 
-const WeatherCard = ({ index, city,date,speed,degree,country,temparature,description,tempMin,tempMax,pressure,humidity,visibility,sunrise,sunset, onClick }) => {
-  const handleClick = () => {
-    onClick(index);
+const WeatherCard = ({ index, city,cityCode,date,speed,degree,country,temparature,description,tempMin,tempMax,pressure,humidity,visibility,sunrise,sunset, onClick, onClose }) => {
+  const handleClick = (event) => {
+    if (!event.target.classList.contains('close-buttonc')){ onClick(index);}
+   
   };
+
+  const colorClass = `color-${index % 5 + 1}`
 
   const getWeatherIcon = (description) => {
     if (description.includes("clear sky")) {
@@ -55,45 +57,47 @@ const WeatherCard = ({ index, city,date,speed,degree,country,temparature,descrip
     const formattedMinutes = minutes.toString().padStart(2, '0');
     return `${formattedHours}:${formattedMinutes} ${period}`;
   }
-
+   const sunSet = convertUnixTimestampToAMPM(sunset)
+   const sunRise = convertUnixTimestampToAMPM(sunrise)
+   const weatherIcon = getWeatherIcon(description)
+   date = formatDate(date)
+   
   return (
-    
-    <div className="card"  onClick={handleClick}>
-  <div className="card__img">
-  <div className="cardtitle_data">
-    <h2>{city},{country}</h2>
-    <h6>{formatDate(date)}</h6>
-    <div className="cardweatheric">
-    <div className="weather-icon">{getWeatherIcon(description)}</div>
-    <h5>{description}</h5>
-    </div>
-    
-    </div> 
-  <div className = "card_tempdata">
-        <h1>{temparature}&deg;C</h1>
-        <h6>Temp Min: {tempMin}</h6>
-        <h6>Temp Max: {tempMax}</h6>
-  </div>
+    <div>
+       
+    <div  className="card"  onClick={handleClick}>  
+   
+  <div className={`card__img ${colorClass}`}>
+  <button className="close-buttonc" onClick={() => onClose(city)}>X</button>
+ <City
+ city={city}
+ country={country}
+ date={date}
+ weatherIcon={weatherIcon}
+ description={description}/>
+  
+  <TemparatureData
+      temparature={temparature}
+      tempMax={tempMax}
+      tempMin={tempMin}/>
   </div>
 <div className="card__descr-wrapper">
-    <div className="container1">
-        <h6>Pressure: {pressure}Pa</h6>
-        <h6>Humidity: {humidity}%</h6>
-        <h6>visibility: {visibility}km</h6>
-    </div>
-   <div className="container2">
-        <div className="wind-icon"><FontAwesomeIcon icon={faPaperPlane} /></div>
-        <h6>{speed}/s {degree} Degree</h6>
-   </div>
-    
-    <div className="container3">
-        <h6>Sunrise: { convertUnixTimestampToAMPM(sunrise)}</h6>
-        <h6>Sunset: {convertUnixTimestampToAMPM(sunset)}</h6>  
-  </div>
+    <PrsHmVs
+    pressure={pressure}
+    humidity={humidity}
+    visibility={visibility}
+    />
+   <Wind
+   speed={speed}
+   degree={degree}/>
+   
+    <Sun 
+    sunRise={sunRise}
+    sunSet={sunSet}/>
 </div>
 </div>
     
-
+</div>
     
   );
 };

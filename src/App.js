@@ -1,8 +1,8 @@
 import React from "react";
-import Dashboard from "./components/Dashboard";
-import Header from "./components/Header";
+import Dashboard from "./components/UI/Dashboard";
+import Header from "./components/UI/Header";
 
-import './styles.css';
+import './styles/styles.css';
 
 function App() {
   return (
