@@ -8,7 +8,7 @@ const Dashboard = () => {
   const [weatherData, setWeatherData] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null); //error
 
   useEffect(() => {
     const fetchData = async () => {
