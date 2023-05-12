@@ -1,80 +1,25 @@
-import React, { useState, useEffect } from "react";
-import WeatherCard from "../Weather Components/WeatherCard";
-import WeatherDetails from "../Weather Components/WeatherDetails";
-import { API_KEY } from "../../constants/dashboard_constants";
-import { API_WEATHER_URL } from "../../helpers/APIHelper"; //import api url
-import Footer from "./Footer"
+import React, { useState, useEffect } from 'react';
+import WeatherCards from '../Weather Components/WeatherCards';
+import WeatherDetails from '../Weather Components/WeatherDetails';
+import Footer from './Footer';
+import { getCityCodes } from '../../helpers/CityCodes';
+import { getWeatherData } from '../../helpers/APIHelper';
 
 const Dashboard = () => {
   const [weatherData, setWeatherData] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    let timeoutId;
+    //fetching weatherdata from api based on city codes
     const fetchData = async () => {
       setIsLoading(true);
 
       try {
-        console.log("data fetching..");
-        const response = await fetch("/cities.json");
-        const datac = await response.json();
-        let citieso = datac.List.map((city) => city.CityCode).join(",");
-        const cities = citieso.split(",");
-        console.log(cities);
-        const weatherData = [];
-
-      
-        const cachedData = {};
-
-       
-        for (let i = 0; i < cities.length; i++) {
-          const cityCode = cities[i];
-          const cacheKey = `weatherData-${cityCode}`;
-
-          
-          if (cachedData[cacheKey] && Date.now() - cachedData[cacheKey].timestamp <300000) {
-            weatherData.push(cachedData[cacheKey].data);
-          } else {
-            const response = await fetch(`${API_WEATHER_URL}/weather?id=${cityCode}&units=metric&appid=${API_KEY}`);
-
-            if (!response.ok) {
-              throw new Error("Error in Network responsing.");
-            }
-
-            const data = await response.json();
-            const newData = {
-              cityCode: cityCode,
-              city: data.name,
-              temparature: data.main.temp,
-              main: data.weather[0].main,
-              description: data.weather[0].description,
-              date: data.dt,
-              data: data,
-              tempMin: data.main.temp_max,
-              tempMax: data.main.temp_min,
-              speed: data.wind.speed,
-              degree: data.wind.degree,
-              pressure: data.main.pressure,
-              humidity: data.main.humidity,
-              visibility: data.visibility,
-              sunrise: data.sys.sunrise,
-              sunset: data.sys.sunset,
-              country: data.sys.country,
-            };
-
-            console.log(newData);
-
-            cachedData[cacheKey] = {
-              timestamp: Date.now(),
-              data: newData,
-            };
-
-            weatherData.push(newData);
-          }
-        }
-
-      
+        const cityCodes = await getCityCodes();
+        const weatherData = await getWeatherData(cityCodes);
         setWeatherData(weatherData);
         setIsLoading(false);
       } catch (error) {
@@ -84,35 +29,37 @@ const Dashboard = () => {
     };
 
     fetchData();
+
+    timeoutId = setInterval(() => {
+      fetchData();
+    }, 300000);
+
+    return () => clearInterval(timeoutId);
   }, []);
 
+  //cache selected Item
   useEffect(() => {
-    const index = localStorage.getItem("selectedCardIndex");
+    const index = localStorage.getItem('selectedCardIndex');
     if (index !== null) {
       setSelectedCard(weatherData[index]);
     }
   }, [weatherData]);
 
   const handleCardClick = (index) => {
-    localStorage.setItem("selectedCardIndex", index);
+    localStorage.setItem('selectedCardIndex', index);
     setSelectedCard(weatherData[index]);
-    
   };
 
   const handleCardClose = (city) => {
-    const pm = city
-    const newWeatherData = weatherData.filter((data) => data.city !== pm)
-    console.log('filtering..')
-    console.log(newWeatherData)
-    setWeatherData(newWeatherData)
-    console.log('button clicked')
-    
-  }
+    const newWeatherData = weatherData.filter((data) => data.city !== city);
+    console.log('filtering..');
+    console.log(newWeatherData);
+    setWeatherData(newWeatherData);
+  };
 
   const handleClose = () => {
-    localStorage.removeItem("selectedCardIndex");
+    localStorage.removeItem('selectedCardIndex');
     setSelectedCard(null);
-    
   };
 
   if (isLoading) {
@@ -127,58 +74,34 @@ const Dashboard = () => {
     <div>
       {selectedCard ? (
         <div>
-        <WeatherDetails
-          city={selectedCard.city}
-          country={selectedCard.country}
-          temparature={selectedCard.temparature}
-          date={selectedCard.date}
-          description={selectedCard.description}
-          tempMin={selectedCard.tempMax}
-          tempMax={selectedCard.tempMin}
-          pressure={selectedCard.pressure}
-          humidity={selectedCard.humidity}
-          visibility={selectedCard.visibility}
-          sunrise={selectedCard.sunrise}
-          sunset={selectedCard.sunset}
-          speed={selectedCard.speed}
-          degree={selectedCard.degree}
-          onClose={handleClose}
-        />
-        
+          <WeatherDetails
+            city={selectedCard.city}
+            country={selectedCard.country}
+            temparature={selectedCard.temparature}
+            date={selectedCard.date}
+            description={selectedCard.description}
+            tempMin={selectedCard.tempMax}
+            tempMax={selectedCard.tempMin}
+            pressure={selectedCard.pressure}
+            humidity={selectedCard.humidity}
+            visibility={selectedCard.visibility}
+            sunrise={selectedCard.sunrise}
+            sunset={selectedCard.sunset}
+            speed={selectedCard.speed}
+            degree={selectedCard.degree}
+            onClose={handleClose}
+          />
         </div>
       ) : (
         <div>
-        <div className="weather-cards-container">
-          {weatherData.map((data, index) => (
-            <WeatherCard
-              key={index}
-              index={index}
-              city={data.city}
-              main={data.main}
-              temparature={data.temparature}
-              date={data.date}
-              data={data.data}
-              description={data.description}
-              tempMin={data.tempMax}
-              tempMax={data.tempMin}
-              pressure={data.pressure}
-              humidity={data.humidity}
-              visibility={data.visibility}
-              sunrise={data.sunrise}
-              sunset={data.sunset}
-              country={data.country}
-              speed={data.speed}
-              degree={data.degree}
-              cityCode = {data.cityCode}
-              onClick={handleCardClick}
-              onClose={handleCardClose}
-            />
-          ))}
-        </div>
-        <Footer/>
+          <WeatherCards
+            weatherData={weatherData}
+            handleCardClick={handleCardClick}
+            handleCardClose={handleCardClose}
+          />
+          <Footer />
         </div>
       )}
-      
     </div>
   );
 };
