@@ -4,7 +4,6 @@ import Sun from '../Data Components/Sun';
 import PrsHmVs from '../Data Components/PressureHumidityVisibility';
 import Wind from '../Data Components/Wind';
 
-
 const WeatherDetails = ({
   city,
   date,
@@ -38,7 +37,7 @@ const WeatherDetails = ({
     } else {
       return 'clearSky';
     }
-  }; 
+  };
 
   function formatDate(timestamp) {
     const date = new Date(timestamp * 1000); // convert to milliseconds
@@ -67,7 +66,6 @@ const WeatherDetails = ({
   const weatherIcon = getWeatherIcon(description);
   date = formatDate(date);
 
-  
   return (
     <div className="cardc">
       <div className="header-cardc">
@@ -78,11 +76,16 @@ const WeatherDetails = ({
         </button>
 
         <div className="cityDatac">
-          <h4>{city},{country}</h4>
+          <h4>
+            {city},{country}
+          </h4>
           <p className="p-timec">{date} </p>
           <div className="desc-tempc">
             <div className="descc">
-              <img src={`../assests/${weatherIcon}.png`} className="icon-desc" />
+              <img
+                src={`../assests/${weatherIcon}.png`}
+                className="icon-desc"
+              />
               <p className="p-descc">{description}</p>
             </div>
             <div className="tempDatac">
@@ -95,16 +98,12 @@ const WeatherDetails = ({
       </div>
       <div className="lower-cardc">
         <PrsHmVs
-        pressure={pressure}
-        humidity={humidity}
-        visibility={visibility}/>
-        <Wind
-        speed={speed}
-        degree={degree}/>
-        <Sun
-        sunRise={sunRise}
-        sunSet={sunSet}/>
-        
+          pressure={pressure}
+          humidity={humidity}
+          visibility={visibility}
+        />
+        <Wind speed={speed} degree={degree} />
+        <Sun sunRise={sunRise} sunSet={sunSet} />
       </div>
     </div>
   );

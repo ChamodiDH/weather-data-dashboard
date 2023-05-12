@@ -81,7 +81,9 @@ const WeatherCard = ({
     <div className="card">
       <div className={`header-card ${colorClass}`} onClick={handleClick}>
         <div className="close-buttonc">
-          <button className='cls-btn' onClick={() => onClose(city)}>X</button>
+          <button className="cls-btn" onClick={() => onClose(city)}>
+            X
+          </button>
         </div>
         <div className="hd">
           <City
