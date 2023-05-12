@@ -1,14 +1,13 @@
-import React from "react";
+import React from 'react';
 
-const PrsHmVs = ({pressure,humidity,visibility}) => {
+const PressureHumidityVisibility = ({ pressure, humidity, visibility }) => {
   return (
-    <div className="container1">
-        <h6>Pressure: {pressure}Pa</h6>
-        <h6>Humidity: {humidity}%</h6>
-        <h6>visibility: {visibility}km</h6>
+    <div className="phvData">
+      <p className="p-lw-details">Pressure:{pressure}</p>
+      <p className="p-lw-details">Humidity: {humidity}</p>
+      <p className="p-lw-details">Visibility:{visibility}</p>
     </div>
-   
   );
 };
 
-export default PrsHmVs;
+export default PressureHumidityVisibility;

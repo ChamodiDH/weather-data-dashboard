@@ -1,19 +1,9 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faSun,
-  faCloud,
-  faIndustry,
-  faLemon,
-  faBars,
-  faTint,
-  faArrowLeft,
-} from '@fortawesome/free-solid-svg-icons';
+
 import Sun from '../Data Components/Sun';
 import PrsHmVs from '../Data Components/PressureHumidityVisibility';
 import Wind from '../Data Components/Wind';
-import City from '../Data Components/City';
-import TemparatureData from '../Data Components/TemparatureData';
+
 
 const WeatherDetails = ({
   city,
@@ -34,21 +24,21 @@ const WeatherDetails = ({
 }) => {
   const getWeatherIcon = (description) => {
     if (description.includes('clear sky')) {
-      return <FontAwesomeIcon icon={faSun} />;
+      return 'clearSky';
     } else if (description.includes('overcast clouds')) {
-      return <FontAwesomeIcon icon={faCloud} />;
+      return 'fewClouds';
     } else if (description.includes('broken clouds')) {
-      return <FontAwesomeIcon icon={faIndustry} />;
+      return 'brokenCloud';
     } else if (description.includes('few clouds')) {
-      return <FontAwesomeIcon icon={faLemon} />;
+      return 'fewClouds';
     } else if (description.includes('mist')) {
-      return <FontAwesomeIcon icon={faBars} />;
+      return 'mist';
     } else if (description.includes('light rain')) {
-      return <FontAwesomeIcon icon={faTint} />;
+      return 'lightRain';
     } else {
-      return <FontAwesomeIcon icon={faSun} />;
+      return 'clearSky';
     }
-  }; // create a new Date object with the current date and time
+  }; 
 
   function formatDate(timestamp) {
     const date = new Date(timestamp * 1000); // convert to milliseconds
@@ -77,42 +67,44 @@ const WeatherDetails = ({
   const weatherIcon = getWeatherIcon(description);
   date = formatDate(date);
 
+  
   return (
-    <div>
-      <div>
-        <div className="card">
-          <div className="card__img2">
-            <button className="close-button" onClick={onClose}>
-              {' '}
-              <div className="wind-icon">
-                <FontAwesomeIcon icon={faArrowLeft} />
-              </div>
-            </button>
-            <City
-              city={city}
-              country={country}
-              date={date}
-              weatherIcon={weatherIcon}
-              description={description}
-            />
-
-            <TemparatureData
-              temparature={temparature}
-              tempMax={tempMax}
-              tempMin={tempMin}
-            />
+    <div className="cardc">
+      <div className="header-cardc">
+        <button className="close-button" onClick={onClose}>
+          <div className="wind-icon">
+            <img src="../assests/arrow.png" className="icon-rocket-desc" />
           </div>
-          <div className="card__descr-wrapper2">
-            <PrsHmVs
-              pressure={pressure}
-              humidity={humidity}
-              visibility={visibility}
-            />
-            <Wind speed={speed} degree={degree} />
+        </button>
 
-            <Sun sunRise={sunRise} sunSet={sunSet} />
+        <div className="cityDatac">
+          <h4>{city},{country}</h4>
+          <p className="p-timec">{date} </p>
+          <div className="desc-tempc">
+            <div className="descc">
+              <img src={`../assests/${weatherIcon}.png`} className="icon-desc" />
+              <p className="p-descc">{description}</p>
+            </div>
+            <div className="tempDatac">
+              <h2>{temparature}</h2>
+              <p className="p-tempc">Temp Min: {tempMin}</p>
+              <p className="p-tempc">Temp Max: {tempMax}</p>
+            </div>
           </div>
         </div>
+      </div>
+      <div className="lower-cardc">
+        <PrsHmVs
+        pressure={pressure}
+        humidity={humidity}
+        visibility={visibility}/>
+        <Wind
+        speed={speed}
+        degree={degree}/>
+        <Sun
+        sunRise={sunRise}
+        sunSet={sunSet}/>
+        
       </div>
     </div>
   );

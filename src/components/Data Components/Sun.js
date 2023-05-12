@@ -1,12 +1,11 @@
-import React from "react";
+import React from 'react';
 
-const Sun = ({sunRise,sunSet}) => {
+const Sun = ({ sunRise, sunSet }) => {
   return (
-    <div className="container3">
-    <h6>Sunrise: {sunRise}</h6>
-    <h6>Sunset: {sunSet}</h6>  
-</div>
-   
+    <div className="sunData">
+      <p className="p-lw-details">Sunrise:{sunRise}</p>
+      <p className="p-lw-details">Sunset:{sunSet}</p>
+    </div>
   );
 };
 

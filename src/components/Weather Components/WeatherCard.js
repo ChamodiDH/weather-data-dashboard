@@ -1,18 +1,9 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import TemparatureData from '../Data Components/TemparatureData';
 import Sun from '../Data Components/Sun';
 import PrsHmVs from '../Data Components/PressureHumidityVisibility';
 import Wind from '../Data Components/Wind';
 import City from '../Data Components/City';
-import {
-  faSun,
-  faCloud,
-  faIndustry,
-  faLemon,
-  faBars,
-  faTint,
-} from '@fortawesome/free-solid-svg-icons';
 
 const WeatherCard = ({
   index,
@@ -35,7 +26,7 @@ const WeatherCard = ({
   onClose,
 }) => {
   const handleClick = (event) => {
-    if (!event.target.classList.contains('close-buttonc')) {
+    if (!event.target.classList.contains('cls-btn')) {
       onClick(index);
     }
   };
@@ -44,19 +35,19 @@ const WeatherCard = ({
 
   const getWeatherIcon = (description) => {
     if (description.includes('clear sky')) {
-      return <FontAwesomeIcon icon={faSun} />;
+      return 'clearSky';
     } else if (description.includes('overcast clouds')) {
-      return <FontAwesomeIcon icon={faCloud} />;
+      return 'fewClouds';
     } else if (description.includes('broken clouds')) {
-      return <FontAwesomeIcon icon={faIndustry} />;
+      return 'brokenCloud';
     } else if (description.includes('few clouds')) {
-      return <FontAwesomeIcon icon={faLemon} />;
+      return 'fewClouds';
     } else if (description.includes('mist')) {
-      return <FontAwesomeIcon icon={faBars} />;
+      return 'mist';
     } else if (description.includes('light rain')) {
-      return <FontAwesomeIcon icon={faTint} />;
+      return 'lightRain';
     } else {
-      return <FontAwesomeIcon icon={faSun} />;
+      return 'clearSky';
     }
   }; // create a new Date object with the current date and time
 
@@ -87,36 +78,34 @@ const WeatherCard = ({
   date = formatDate(date);
 
   return (
-    <div>
-      <div className="card" onClick={handleClick}>
-        <div className={`card__img ${colorClass}`}>
-          <button className="close-buttonc" onClick={() => onClose(city)}>
-            X
-          </button>
+    <div className="card">
+      <div className={`header-card ${colorClass}`} onClick={handleClick}>
+        <div className="close-buttonc">
+          <button className='cls-btn' onClick={() => onClose(city)}>X</button>
+        </div>
+        <div className="hd">
           <City
             city={city}
             country={country}
             date={date}
-            weatherIcon={weatherIcon}
             description={description}
+            weatherIcon={weatherIcon}
           />
-
           <TemparatureData
             temparature={temparature}
             tempMax={tempMax}
             tempMin={tempMin}
           />
         </div>
-        <div className="card__descr-wrapper">
-          <PrsHmVs
-            pressure={pressure}
-            humidity={humidity}
-            visibility={visibility}
-          />
-          <Wind speed={speed} degree={degree} />
-
-          <Sun sunRise={sunRise} sunSet={sunSet} />
-        </div>
+      </div>
+      <div className="lower-card">
+        <PrsHmVs
+          pressure={pressure}
+          humidity={humidity}
+          visibility={visibility}
+        />
+        <Wind speed={speed} degree={degree} />
+        <Sun sunRise={sunRise} sunSet={sunSet} />
       </div>
     </div>
   );

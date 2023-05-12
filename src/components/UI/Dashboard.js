@@ -73,7 +73,7 @@ const Dashboard = () => {
   return (
     <div>
       {selectedCard ? (
-        <div>
+        <div className="card-container">
           <WeatherDetails
             city={selectedCard.city}
             country={selectedCard.country}
@@ -91,9 +91,10 @@ const Dashboard = () => {
             degree={selectedCard.degree}
             onClose={handleClose}
           />
+          <Footer />
         </div>
       ) : (
-        <div>
+        <div className="main-8-squres">
           <WeatherCards
             weatherData={weatherData}
             handleCardClick={handleCardClick}

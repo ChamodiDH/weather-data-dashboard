@@ -1,14 +1,11 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faSun} from "@fortawesome/free-solid-svg-icons";
+import React from 'react';
 const Header = () => {
-    return (
-        <div className="Header-main">
-            
-            <h1><FontAwesomeIcon icon={faSun} /> Weather App</h1>
-        </div>
-       
-      );
-} 
+  return (
+    <div className="main-header">
+      <img src="../assests/headericon.png" className="header-icon" />
+      <h1>Weather App</h1>
+    </div>
+  );
+};
 
 export default Header;

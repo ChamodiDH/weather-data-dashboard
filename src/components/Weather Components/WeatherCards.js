@@ -3,7 +3,7 @@ import WeatherCard from './WeatherCard';
 
 const WeatherCards = ({ weatherData, handleCardClick, handleCardClose }) => {
   return (
-    <div className="weather-cards-container">
+    <div className="main-2-squres">
       {weatherData.map((data, index) => (
         <WeatherCard
           key={index}
