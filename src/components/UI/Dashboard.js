@@ -13,7 +13,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     let timeoutId;
-    //fetching weatherdata from api based on city codes
+   
     const fetchData = async () => {
       setIsLoading(true);
 

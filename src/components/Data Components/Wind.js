@@ -5,7 +5,7 @@ const Wind = ({ speed, degree }) => {
     <div className="windData">
       <img src="../assests/rocket.png" className="icon-rocket-desc" />
       <p className="p-lw-details">
-        {speed}/s {degree} Degree
+        {speed}m/s {degree} Degree
       </p>
     </div>
   );

@@ -89,9 +89,9 @@ const WeatherDetails = ({
               <p className="p-descc">{description}</p>
             </div>
             <div className="tempDatac">
-              <h2>{temparature}</h2>
-              <p className="p-tempc">Temp Min: {tempMin}</p>
-              <p className="p-tempc">Temp Max: {tempMax}</p>
+              <h2>{Math.trunc(temparature)}&deg;C</h2>
+              <p className="p-tempc">Temp Min: {Math.trunc(tempMin)}&deg;C</p>
+              <p className="p-tempc">Temp Max: {Math.trunc(tempMax)}&deg;C</p>
             </div>
           </div>
         </div>
