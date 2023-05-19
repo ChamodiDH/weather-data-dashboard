@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import WeatherCards from '../Weather Components/WeatherCards';
 import WeatherDetails from '../Weather Components/WeatherDetails';
 import Footer from './Footer';
@@ -10,29 +10,25 @@ const Dashboard = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const dataFetchedRef = useRef(false)
+  const dataFetchedRef = useRef(false);
 
   useEffect(() => {
     let timeoutId;
-    
-   
+
     const fetchData = async () => {
-      if(dataFetchedRef.current){
-        return
+      if (dataFetchedRef.current) {
+        return;
       }
-      dataFetchedRef.current = true
+      dataFetchedRef.current = true;
       // setIsLoading(true);
 
       try {
-        
         const cities = await getCitiesFromJSON();
         const weatherData = await getWeatherData(cities);
-       
-          setWeatherData(weatherData);
+
+        setWeatherData(weatherData);
         setIsLoading(false);
-        setError(null)
-       
-        
+        setError(null);
       } catch (error) {
         setIsLoading(false);
         setError(error.message);
@@ -46,9 +42,7 @@ const Dashboard = () => {
     }, 300000);
 
     return () => {
-      
-      clearInterval(timeoutId)
-     
+      clearInterval(timeoutId);
     };
   }, []);
 
@@ -90,20 +84,7 @@ const Dashboard = () => {
       {selectedCard ? (
         <div className="card-container">
           <WeatherDetails
-            city={selectedCard.city}
-            country={selectedCard.country}
-            temp={selectedCard.temp}
-            date={selectedCard.date}
-            description={selectedCard.description}
-            tempMin={selectedCard.tempMax}
-            tempMax={selectedCard.tempMin}
-            pressure={selectedCard.pressure}
-            humidity={selectedCard.humidity}
-            visibility={selectedCard.visibility}
-            sunrise={selectedCard.sunrise}
-            sunset={selectedCard.sunset}
-            speed={selectedCard.speed}
-            degree={selectedCard.degree}
+            cityCode={selectedCard.cityCode}
             onClose={handleClose}
           />
           <Footer />

@@ -1,26 +1,38 @@
-import React from 'react';
 
+import React, { useState, useEffect,useRef} from 'react';
 import Sun from '../Data Components/Sun';
 import PrsHmVs from '../Data Components/PressureHumidityVisibility';
 import Wind from '../Data Components/Wind';
+import { fetchWeatherDataByCityCode } from '../../helpers/APIHelper';
+
+
 
 const WeatherDetails = ({
-  city,
-  date,
-  speed,
-  degree,
-  country,
-  temp,
-  description,
-  tempMin,
-  tempMax,
-  pressure,
-  humidity,
-  visibility,
-  sunrise,
-  sunset,
   onClose,
+  cityCode
 }) => {
+  const [weatherData, setWeatherData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+
+      try {
+        const data = await fetchWeatherDataByCityCode(cityCode);
+        setWeatherData(data);
+        console.log(weatherData)
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        setError(error.message);
+      }
+    };
+
+    fetchData();
+  }, [cityCode]);
+
   const getWeatherIcon = (description) => {
     if (description.includes('clear sky')) {
       return 'clearSky';
@@ -61,10 +73,23 @@ const WeatherDetails = ({
     return `${formattedHours}:${formattedMinutes} ${period}`;
   }
 
-  const sunSet = convertUnixTimestampToAMPM(sunset);
-  const sunRise = convertUnixTimestampToAMPM(sunrise);
-  const weatherIcon = getWeatherIcon(description);
-  date = formatDate(date);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!weatherData) {
+    return null; 
+  }
+
+
+  const sunSet = convertUnixTimestampToAMPM(weatherData.sunset);
+  const sunRise = convertUnixTimestampToAMPM(weatherData.sunrise);
+  const weatherIcon = getWeatherIcon(weatherData.description);
+  const date = formatDate(weatherData.date);
 
  
   return (
@@ -78,7 +103,7 @@ const WeatherDetails = ({
 
         <div className="cityDatac">
           <h4>
-            {city},{country}
+            {weatherData.city},{weatherData.country}
           </h4>
           <p className="p-timec">{date} </p>
           <div className="desc-tempc">
@@ -87,23 +112,23 @@ const WeatherDetails = ({
                 src={`../assests/${weatherIcon}.png`}
                 className="icon-desc"
               />
-              <p className="p-descc">{description}</p>
+              <p className="p-descc">{weatherData.description}</p>
             </div>
             <div className="tempDatac">
-              <h2>{Math.trunc(temp)}&deg;C</h2>
-              <p className="p-tempc">Temp Min: {Math.trunc(tempMin)}&deg;C</p>
-              <p className="p-tempc">Temp Max: {Math.trunc(tempMax)}&deg;C</p>
+              <h2>{Math.trunc(weatherData.temp)}&deg;C</h2>
+              <p className="p-tempc">Temp Min: {Math.trunc(weatherData.tempMin)}&deg;C</p>
+              <p className="p-tempc">Temp Max: {Math.trunc(weatherData.tempMax)}&deg;C</p>
             </div>
           </div>
         </div>
       </div>
       <div className="lower-cardc">
         <PrsHmVs
-          pressure={pressure}
-          humidity={humidity}
-          visibility={visibility}
+          pressure={weatherData.pressure}
+          humidity={weatherData.humidity}
+          visibility={weatherData.visibility}
         />
-        <Wind speed={speed} degree={degree} />
+        <Wind speed={weatherData.speed} degree={weatherData.degree} />
         <Sun sunRise={sunRise} sunSet={sunSet} />
       </div>
     </div>
