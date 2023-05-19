@@ -13,7 +13,7 @@ const WeatherCard = ({
   speed,
   degree,
   country,
-  temparature,
+  temp,
   description,
   tempMin,
   tempMax,
@@ -76,6 +76,7 @@ const WeatherCard = ({
   const sunRise = convertUnixTimestampToAMPM(sunrise);
   const weatherIcon = getWeatherIcon(description);
   date = formatDate(date);
+  
 
   return (
     <div className="card">
@@ -94,7 +95,7 @@ const WeatherCard = ({
             weatherIcon={weatherIcon}
           />
           <TemparatureData
-            temparature={temparature}
+            temp={temp}
             tempMax={tempMax}
             tempMin={tempMin}
           />

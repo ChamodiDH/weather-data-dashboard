@@ -2,15 +2,17 @@ import React from 'react';
 import WeatherCard from './WeatherCard';
 
 const WeatherCards = ({ weatherData, handleCardClick, handleCardClose }) => {
+ 
   return (
     <div className="main-2-squres">
       {weatherData.map((data, index) => (
+        
         <WeatherCard
           key={index}
           index={index}
           city={data.city}
           main={data.main}
-          temparature={data.temparature}
+          temp={data.temp}
           date={data.date}
           data={data.data}
           description={data.description}

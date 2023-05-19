@@ -4,52 +4,66 @@ import { API_WEATHER_URL } from '../constants/dashboard_constants';
 
 const CACHE_KEY = 'weatherData';
 
+
 export const getWeatherData = async (cities) => {
-  const cacheKey = CACHE_KEY;
-  const cachedData = JSON.parse(localStorage.getItem(cacheKey)) || {};
+  const weatherData = [];
+  const cacheKeyPrefix = 'weatherData';
 
-  // Check if cached data exists and has not expired
-  if (cachedData.data && Date.now() - cachedData.timestamp < 300000) {
-    return cachedData.data;
-  } else {
-    try {
-      const response = await axios.get(
-        `${API_WEATHER_URL}/group?id=${cities.join(
-          ','
-        )}&units=metric&appid=${API_KEY}`
-      );
+  try {
+    for (const city of cities) {
+      const cityCode = city.CityCode;
+      console.log(cityCode)
+      const cacheKey = `${cacheKeyPrefix}-${cityCode}`;
+      const cachedData = JSON.parse(localStorage.getItem(cacheKey)) || {};
 
-      const data = response.data;
-      const weatherData = data.list.map((item) => ({
-        cityCode: item.id,
-        city: item.name,
-        temparature: item.main.temp,
-        main: item.weather[0].main,
-        description: item.weather[0].description,
-        date: item.dt,
-        data: item,
-        tempMin: item.main.temp_min,
-        tempMax: item.main.temp_max,
-        speed: item.wind.speed,
-        degree: item.wind.deg,
-        pressure: item.main.pressure,
-        humidity: item.main.humidity,
-        visibility: item.visibility,
-        sunrise: item.sys.sunrise,
-        sunset: item.sys.sunset,
-        country: item.sys.country,
-      }));
+      if (cachedData.data && Date.now() - cachedData.timestamp < city.CacheTime) {
+        weatherData.push(cachedData.data);
+      } else {
+        const response = await axios.get(
+          `${API_WEATHER_URL}/weather?id=${cityCode}&units=metric&appid=${API_KEY}`
+        );
 
-      // Set cached data in local storage
-      localStorage.setItem(
-        cacheKey,
-        JSON.stringify({ data: weatherData, timestamp: Date.now() })
-      );
+        if (response.status === 200) {
+          const data = response.data;
+        
+          const newData = {
+            cityCode: cityCode,
+            city: data.name,
+            temp: data.main.temp,
+            main: data.weather[0].main,
+            description: data.weather[0].description,
+            date: data.dt,
+            data: data,
+            tempMin: data.main.temp_max,
+            tempMax: data.main.temp_min,
+            speed: data.wind.speed,
+            degree: data.wind.degree,
+            pressure: data.main.pressure,
+            humidity: data.main.humidity,
+            visibility: data.visibility,
+            sunrise: data.sys.sunrise,
+            sunset: data.sys.sunset,
+            country: data.sys.country,
+          };
+  
+          cachedData.data = newData;
+          cachedData.timestamp = Date.now();
+  
+          localStorage.setItem(cacheKey, JSON.stringify(cachedData));
+  
+          weatherData.push(newData);
+          
+        }else{
+          throw new Error('Error in network response.');
+        }
 
-      return weatherData;
-    } catch (error) {
-      console.error('Error fetching weather data: ', error);
-      throw error;
+       
+      }
     }
+
+    return weatherData;
+  } catch (error) {
+    console.error('Error fetching weather data: ', error);
+    throw error;
   }
 };

@@ -10,7 +10,7 @@ const WeatherDetails = ({
   speed,
   degree,
   country,
-  temparature,
+  temp,
   description,
   tempMin,
   tempMax,
@@ -66,6 +66,7 @@ const WeatherDetails = ({
   const weatherIcon = getWeatherIcon(description);
   date = formatDate(date);
 
+ 
   return (
     <div className="cardc">
       <div className="header-cardc">
@@ -89,7 +90,7 @@ const WeatherDetails = ({
               <p className="p-descc">{description}</p>
             </div>
             <div className="tempDatac">
-              <h2>{Math.trunc(temparature)}&deg;C</h2>
+              <h2>{Math.trunc(temp)}&deg;C</h2>
               <p className="p-tempc">Temp Min: {Math.trunc(tempMin)}&deg;C</p>
               <p className="p-tempc">Temp Max: {Math.trunc(tempMax)}&deg;C</p>
             </div>

@@ -1,27 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef} from 'react';
 import WeatherCards from '../Weather Components/WeatherCards';
 import WeatherDetails from '../Weather Components/WeatherDetails';
 import Footer from './Footer';
-import { getCityCodes } from '../../helpers/CityCodes';
+import { getCitiesFromJSON } from '../../helpers/CityCodes';
 import { getWeatherData } from '../../helpers/APIHelper';
 
 const Dashboard = () => {
   const [weatherData, setWeatherData] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const dataFetchedRef = useRef(false)
 
   useEffect(() => {
     let timeoutId;
+    
    
     const fetchData = async () => {
-      setIsLoading(true);
+      if(dataFetchedRef.current){
+        return
+      }
+      dataFetchedRef.current = true
+      // setIsLoading(true);
 
       try {
-        const cityCodes = await getCityCodes();
-        const weatherData = await getWeatherData(cityCodes);
-        setWeatherData(weatherData);
+        
+        const cities = await getCitiesFromJSON();
+        const weatherData = await getWeatherData(cities);
+       
+          setWeatherData(weatherData);
         setIsLoading(false);
+        setError(null)
+       
+        
       } catch (error) {
         setIsLoading(false);
         setError(error.message);
@@ -34,7 +45,11 @@ const Dashboard = () => {
       fetchData();
     }, 300000);
 
-    return () => clearInterval(timeoutId);
+    return () => {
+      
+      clearInterval(timeoutId)
+     
+    };
   }, []);
 
   //cache selected Item
@@ -77,7 +92,7 @@ const Dashboard = () => {
           <WeatherDetails
             city={selectedCard.city}
             country={selectedCard.country}
-            temparature={selectedCard.temparature}
+            temp={selectedCard.temp}
             date={selectedCard.date}
             description={selectedCard.description}
             tempMin={selectedCard.tempMax}

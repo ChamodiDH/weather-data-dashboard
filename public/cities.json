@@ -1,1 +1,60 @@
- {"List":[{"CityCode":"1248991","CityName":"Colombo","Temp":"33.0","Status":"Clouds"},{"CityCode":"1850147","CityName":"Tokyo","Temp":"8.6","Status":"Clear"},{"CityCode":"2644210","CityName":"Liverpool","Temp":"16.5","Status":"Rain"},{"CityCode":"2988507","CityName":"Paris","Temp":"22.4","Status":"Clear"},{"CityCode":"2147714","CityName":"Sydney","Temp":"27.3","Status":"Rain"},{"CityCode":"4930956","CityName":"Boston","Temp":"4.2","Status":"Mist"},{"CityCode":"1796236","CityName":"Shanghai","Temp":"10.1","Status":"Clouds"},{"CityCode":"3143244","CityName":"Oslo","Temp":"-3.9","Status":"Clear"}]}
+{
+    "List": [
+      {
+        "CityCode": "1248991",
+        "CityName": "Colombo",
+        "Temp": "33.0",
+        "Status": "Clouds",
+        "CacheTime": 300000
+      },
+      {
+        "CityCode": "1850147",
+        "CityName": "Tokyo",
+        "Temp": "8.6",
+        "Status": "Clear",
+        "CacheTime": 180000
+      },
+      {
+        "CityCode": "2644210",
+        "CityName": "Liverpool",
+        "Temp": "16.5",
+        "Status": "Rain",
+        "CacheTime": 400000
+      },
+      {
+        "CityCode": "2988507",
+        "CityName": "Paris",
+        "Temp": "22.4",
+        "Status": "Clear",
+        "CacheTime": 60000
+      },
+      {
+        "CityCode": "2147714",
+        "CityName": "Sydney",
+        "Temp": "27.3",
+        "Status": "Rain",
+        "CacheTime": 800000
+      },
+      {
+        "CityCode": "4930956",
+        "CityName": "Boston",
+        "Temp": "4.2",
+        "Status": "Mist",
+        "CacheTime": 500000
+      },
+      {
+        "CityCode": "1796236",
+        "CityName": "Shanghai",
+        "Temp": "10.1",
+        "Status": "Clouds",
+        "CacheTime": 200000
+      },
+      {
+        "CityCode": "3143244",
+        "CityName": "Oslo",
+        "Temp": "-3.9",
+        "Status": "Clear",
+        "CacheTime": 700000
+      }
+    ]
+  }

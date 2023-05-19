@@ -10,3 +10,16 @@ export const getCityCodes = async () => {
     throw error;
   }
 };
+
+export const getCitiesFromJSON = async () => {
+  const response = await axios.get('/cities.json');
+  const cities = response.data.List.map((city) => ({
+    CityCode: city.CityCode,
+    CityName: city.CityName,
+    Temp: city.Temp,
+    Status: city.Status,
+    CacheTime: city.CacheTime,
+  }));
+
+  return cities;
+};
