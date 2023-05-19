@@ -280,18 +280,41 @@ button {
   background-color: transparent;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 820px) {
   .card {
-    flex-basis: calc(100% - 20px);
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    
   }
 
-  .main-8-squres {
-    height: 100%;
+  .header-card{
+    width: 100%;
   }
 
-  .main-2-squres {
-    grid-template: auto auto / repeat(1, 1fr);
+  .lower-card{
+    width: 100%;
   }
+
+  .phvData{
+    margin-left: 0;
+  }
+
+  .main-8-squres{
+    flex-basis: calc(40% - 20px);
+   
+  }
+
+
+    .main-2-squres {
+      flex-basis: calc(40% - 20px);
+      grid-template: auto auto / repeat(1, 1fr);
+    }
+
+  .main-container{
+    margin: 20px;
+  }
+  
 }
 
 .color-1 {
@@ -314,19 +337,7 @@ button {
   background-color: #9c3a3a;
 }
 
-@media screen and (max-width: 768px) {
-  .card {
-    flex-basis: calc(100% - 20px);
-  }
 
-  .main-8-squres {
-    height: 100%;
-  }
-
-  .main-2-squres {
-    grid-template: auto auto / repeat(1, 1fr);
-  }
-}
 
 /* /**details.css */
 .cardc {
@@ -354,7 +365,6 @@ button {
   height: 400px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  background-image: url('./cloudbg.png');
   background-size: cover;
   background-position: center center;
   margin: 0;
@@ -424,15 +434,17 @@ button {
 .tempDatac {
   height: 120px;
   /* border: #100f0f solid; */
-  width: 10%;
+  width: 15%;
   margin-top: 10px;
-  text-align: center;
+  text-align: left;
   padding-left: 40px;
   padding-right: 0;
   margin-left: 15px;
   border-left: 1px solid white;
 }
-
+.p-tempc{
+  display: block;
+}
 .phvDatac {
   text-align: left;
   padding: 10px;
@@ -475,8 +487,40 @@ button {
   margin-bottom: 10px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 820px) {
   .cardc {
-    flex-basis: calc(100% - 20px);
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    
   }
+
+  .header-cardc{
+    width: 100%;
+  }
+
+  .lower-cardc{
+    width: 100%;
+  }
+
+  .phvDatac{
+    margin-left: 0;
+  }
+
+  .tempDatac h2{
+    font-size: 16.82pt;
+  }
+
+  .h2 {
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 6.82pt;
+    margin: 0;
+  }
+
+  .main-container{
+    margin: 20px;
+  }
+  
 }

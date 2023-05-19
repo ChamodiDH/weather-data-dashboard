@@ -20,7 +20,6 @@ const Dashboard = () => {
         return;
       }
       dataFetchedRef.current = true;
-      // setIsLoading(true);
 
       try {
         const cities = await getCitiesFromJSON();
@@ -80,7 +79,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
+    <>
       {selectedCard ? (
         <div className="card-container">
           <WeatherDetails
@@ -99,7 +98,7 @@ const Dashboard = () => {
           <Footer />
         </div>
       )}
-    </div>
+    </>
   );
 };
 

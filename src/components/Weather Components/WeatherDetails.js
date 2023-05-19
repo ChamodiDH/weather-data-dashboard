@@ -97,7 +97,7 @@ const WeatherDetails = ({
       <div className="header-cardc">
         <button className="close-button" onClick={onClose}>
           <div className="wind-icon">
-            <img src="../assests/arrow.png" className="icon-rocket-desc" />
+            <img src={require("../../assests/arrow.png")} className="icon-rocket-desc" />
           </div>
         </button>
 
@@ -109,7 +109,7 @@ const WeatherDetails = ({
           <div className="desc-tempc">
             <div className="descc">
               <img
-                src={`../assests/${weatherIcon}.png`}
+               src={require(`../../assests/${weatherIcon}.png`)}
                 className="icon-desc"
               />
               <p className="p-descc">{weatherData.description}</p>

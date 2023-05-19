@@ -1,18 +1,16 @@
 import axios from 'axios';
 import { API_KEY } from '../constants/dashboard_constants';
 import { API_WEATHER_URL } from '../constants/dashboard_constants';
-
-const CACHE_KEY = 'weatherData';
+import { CACHEKEY_PREFIX } from '../constants/dashboard_constants';
 
 export const getWeatherData = async (cities) => {
   const weatherData = [];
-  const cacheKeyPrefix = 'weatherData';
 
   try {
     for (const city of cities) {
       const cityCode = city.CityCode;
 
-      const cacheKey = `${cacheKeyPrefix}-${cityCode}`;
+      const cacheKey = `${CACHEKEY_PREFIX}-${cityCode}`;
       const cachedData = JSON.parse(localStorage.getItem(cacheKey)) || {};
 
       if (

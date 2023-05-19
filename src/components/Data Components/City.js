@@ -8,7 +8,7 @@ const City = ({ city, date, weatherIcon, country, description }) => {
       </h4>
       <p className="p-time">{date} </p>
       <div className="desc">
-        <img src={`../assests/${weatherIcon}.png`} className="icon-desc" />
+        <img src={require(`../../assests/${weatherIcon}.png`)} className="icon-desc" />
         <p className="p-desc">{description}</p>
       </div>
     </div>
