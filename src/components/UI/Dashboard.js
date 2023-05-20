@@ -45,7 +45,6 @@ const Dashboard = () => {
     };
   }, []);
 
-  //cache selected Item
   useEffect(() => {
     const index = localStorage.getItem('selectedCardIndex');
     if (index !== null) {

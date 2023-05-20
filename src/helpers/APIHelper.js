@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { API_KEY } from '../constants/dashboard_constants';
-import { API_WEATHER_URL } from '../constants/dashboard_constants';
-import { CACHEKEY_PREFIX } from '../constants/dashboard_constants';
+import { API_KEY } from '../constants/api_constants';
+import { API_WEATHER_URL } from '../constants/api_constants';
+import { CACHEKEY_PREFIX } from '../constants/api_constants';
 
 export const getWeatherData = async (cities) => {
   const weatherData = [];
