@@ -4,6 +4,8 @@ import WeatherDetails from '../Weather Components/WeatherDetails';
 import Footer from './Footer';
 import { getCitiesFromJSON } from '../../helpers/CityCodes';
 import { getWeatherData } from '../../helpers/APIHelper';
+import { useAuth0 } from '@auth0/auth0-react';
+
 
 const Dashboard = () => {
   const [weatherData, setWeatherData] = useState([]);
@@ -11,6 +13,8 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const dataFetchedRef = useRef(false);
+  const { user, isAuthenticated } = useAuth0();
+
 
   useEffect(() => {
     let timeoutId;
@@ -78,6 +82,7 @@ const Dashboard = () => {
   }
 
   return (
+    isAuthenticated &&(
     <>
       {selectedCard ? (
         <div className="card-container">
@@ -98,6 +103,7 @@ const Dashboard = () => {
         </div>
       )}
     </>
+    )
   );
 };
 

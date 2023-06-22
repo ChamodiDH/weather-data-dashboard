@@ -7,6 +7,7 @@ import { fetchWeatherDataByCityCode } from '../../helpers/APIHelper';
 
 
 
+
 const WeatherDetails = ({
   onClose,
   cityCode
@@ -14,9 +15,16 @@ const WeatherDetails = ({
   const [weatherData, setWeatherData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const dataFetchedRef = useRef(false);
 
   useEffect(() => {
+
     const fetchData = async () => {
+      if (dataFetchedRef.current) {
+        return;
+      }
+      dataFetchedRef.current = true;
+      
       setIsLoading(true);
 
       try {
