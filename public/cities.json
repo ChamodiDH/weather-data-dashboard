@@ -5,7 +5,7 @@
         "CityName": "Colombo",
         "Temp": "33.0",
         "Status": "Clouds",
-        "CacheTime": 300000
+        "CacheTime": 1000
       },
       {
         "CityCode": "1850147",

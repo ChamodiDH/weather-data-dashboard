@@ -3,7 +3,7 @@ import WeatherCards from '../Weather Components/WeatherCards';
 import WeatherDetails from '../Weather Components/WeatherDetails';
 import Footer from './Footer';
 import { getCitiesFromJSON } from '../../helpers/CityCodes';
-import { getWeatherData } from '../../helpers/APIHelper';
+import { getWeatherData, fetchWeatherDataByCityCode } from '../../helpers/APIHelper';
 import { useAuth0 } from '@auth0/auth0-react';
 
 
@@ -42,6 +42,7 @@ const Dashboard = () => {
 
     timeoutId = setInterval(() => {
       fetchData();
+      window.location.reload(); // Refresh the page when cache data is updated
     }, 300000);
 
     return () => {
@@ -61,11 +62,21 @@ const Dashboard = () => {
     setSelectedCard(weatherData[index]);
   };
 
-  const handleCardClose = (city) => {
+  const handleCardClose = async (city) => {
     const newWeatherData = weatherData.filter((data) => data.city !== city);
     console.log('filtering..');
     console.log(newWeatherData);
     setWeatherData(newWeatherData);
+
+    try {
+      const cityData = await fetchWeatherDataByCityCode(city);
+      if (cityData) {
+        setWeatherData([...newWeatherData, cityData]);
+        localStorage.setItem('selectedCardIndex', newWeatherData.length);
+      }
+    } catch (error) {
+      console.error('Error fetching weather data: ', error);
+    }
   };
 
   const handleClose = () => {
