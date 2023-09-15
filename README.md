@@ -1,10 +1,9 @@
-# Getting Started with Create React App
+# Weather App Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An application to get the real time weather data from different cities around the world.
 
-## Available Scripts
+![image](https://github.com/ChamodiDH/weather_app/assets/65124026/19ce42cc-ac7a-4eaa-92d8-87a64315390e)
 
-In the project directory, you can run:
 
 ### `npm start`
 
