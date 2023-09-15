@@ -31,8 +31,7 @@ An application to get the real time weather data from different cities around th
 
    
 3.Install the project dependencies using npm:
-
-    ```bash
+   ```bash
    npm install
 
 4.Configure Auth0:
