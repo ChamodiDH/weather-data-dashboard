@@ -23,11 +23,11 @@ An application to get the real time weather data from different cities around th
 1. Clone the repository from GitHub:
 
    ```bash
-   git clone https://github.com/ChamodiDH/weather_app.git)https://github.com/ChamodiDH/weather_app.git
+   git clone https://github.com/ChamodiDH/weather_app.git
    
 2. Navigate to the project directory:
     ```bash
-   cd weather_app
+   cd weathe-data-
 
    
 3. Install the project using:
