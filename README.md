@@ -26,9 +26,8 @@ An application to get the real time weather data from different cities around th
    git clone https://github.com/ChamodiDH/weather_app.git)https://github.com/ChamodiDH/weather_app.git
    
 2. Navigate to the project directory:
-   
-    ```bash
-   cd weather-data-dashboard
+   cd weather_app
+
    
 3.Install the project dependencies using npm:
 
