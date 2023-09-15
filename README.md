@@ -27,7 +27,7 @@ An application to get the real time weather data from different cities around th
    
 2. Navigate to the project directory:
     ```bash
-   cd weathe-data-
+   cd weathe-data-dashboard
 
    
 3. Install the project using:
@@ -36,8 +36,8 @@ An application to get the real time weather data from different cities around th
 
    
 4. Configure Auth0:
-- Create an Auth0 account and set up your application.
--  Configure your Auth0 credentials in the project settings.
+   - Create an Auth0 account and set up your application.
+   -  Configure your Auth0 credentials in the project settings.
 
 5. Start the development server:
 
