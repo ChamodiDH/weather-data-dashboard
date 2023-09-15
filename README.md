@@ -16,7 +16,24 @@ An application to get the real time weather data from different cities around th
 - Click on individual cards to access detailed weather information.
 
 ### Authentication with Auth0
-- Secure your dashboard with user authentication using Auth0.
+- Secured dashboard with user authentication using Auth0.
 - Protect sensitive data and ensure a personalized experience for users.
 
 ## Installation and Usage
+1. Clone the repository from GitHub:
+
+   ```bash
+   git clone https://github.com/ChamodiDH/weather_app.git)https://github.com/ChamodiDH/weather_app.git
+   
+2. Navigate to the project directory:
+   cd weather-data-dashboard
+   
+3.Install the project dependencies using npm:
+   npm install
+
+4.Configure Auth0:
+  Create an Auth0 account and set up your application.
+  Configure your Auth0 credentials in the project settings.
+
+5.Start the development server:
+  npm start
