@@ -30,9 +30,11 @@ An application to get the real time weather data from different cities around th
    cd weather_app
 
    
-3.Install the project dependencies using npm:
-   ```bash
+2. Install the project using:
+    ```bash
    npm install
+
+   
 
 4.Configure Auth0:
 - Create an Auth0 account and set up your application.
