@@ -26,14 +26,20 @@ An application to get the real time weather data from different cities around th
    git clone https://github.com/ChamodiDH/weather_app.git)https://github.com/ChamodiDH/weather_app.git
    
 2. Navigate to the project directory:
+   
+    ```bash
    cd weather-data-dashboard
    
 3.Install the project dependencies using npm:
+
+     ```bash
    npm install
 
 4.Configure Auth0:
-  Create an Auth0 account and set up your application.
-  Configure your Auth0 credentials in the project settings.
+- Create an Auth0 account and set up your application.
+-  Configure your Auth0 credentials in the project settings.
 
 5.Start the development server:
+
+  ```bash
   npm start
