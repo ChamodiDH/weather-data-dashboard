@@ -41,4 +41,4 @@ An application to get the real time weather data from different cities around th
 
 5. Start the development server:
   ```bash
-  npm start
+     npm start
