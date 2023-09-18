@@ -40,6 +40,5 @@ An application to get the real time weather data from different cities around th
    -  Configure your Auth0 credentials in the project settings.
 
 5. Start the development server:
-
   ```bash
   npm start
